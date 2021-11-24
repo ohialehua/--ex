@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   get 'home/about' => 'homes#about'
   resources :users,only: [:show,:index,:edit,:update]
-  resources :books do
-  resource :favorites, only: [:create, :destroy]
-  resource :comments, only: [:create,:destroy]
-  end
   post 'books/:id' => 'books#show'
+  resources :books do
+    resource :favorites, only: [:create, :destroy]
+    resources :book_comments, only: [:create,:destroy]
+    patch '/book_comments' => 'book_comments#create'
+  end
 end
