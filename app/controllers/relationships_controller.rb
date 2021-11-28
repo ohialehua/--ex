@@ -10,7 +10,7 @@ class RelationshipsController < ApplicationController
   end
 
   def followers_index
-    user = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
     @users = user.followers
   end
 
