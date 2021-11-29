@@ -14,4 +14,5 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create,:destroy]
     patch '/book_comments' => 'book_comments#create'
   end
+  get 'search' => 'searches#search'
 end
