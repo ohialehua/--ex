@@ -1,6 +1,17 @@
-<% if @range == '2' %>
+<div class="container px-5 px-sm-0">
+<% if @range == '1' %>
+  <h1>Users search for <%= @word %></h1>
+  <% if @user.count == 0 %>
+    <h2>検索結果がありませんでした</h2>
+  <% else %>
+    <%= render 'users/index', users: @user %>
+  <% end %>
+<% else %>
   <h1>Books search for <%= @word %></h1>
-  <table class='table table-hover table-inverse'>
+  <% if @book.count == 0 %>
+    <h2>検索結果がありませんでした</h2>
+  <% else %>
+<table class='table'>
   <thead>
     <tr>
       <th></th>
@@ -22,8 +33,6 @@
     <% end %>
   </tbody>
 </table>
-
-<% else %>
-　<h1>Users search for <%= @word %></h1>
-  <%= render 'users/index', users: @user %>
+  <% end %>
 <% end %>
+</div>
