@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   get 'home/about' => 'homes#about'
   resources :users,only: [:show,:index,:edit,:update] do
     resource :relationships, only: [:create, :destroy]
-    get 'followers_index' => 'relationships#followers_index'
-    get 'followeds_index' => 'relationships#followeds_index'
+    get 'followings' => 'relationships#followings'
+    get 'followers' => 'relationships#followers'
   end
   post 'books/:id' => 'books#show'
   resources :books do
