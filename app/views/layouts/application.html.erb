@@ -12,21 +12,8 @@
     <header>
     <%= render 'layouts/header' %>
     </header>
-    <% if user_signed_in? %>
-    <div class='container mt-1'>
-     <div class='row'>
-      <div class='mx-auto'>
-        <%= form_tag(search_path, method: :get) do %>
-        <%= text_field_tag (:word) %>
-        <%= select_tag 'range', options_for_select([['選択してください', ''],['User', '1'],['Book', '2']]) %>
-        <%= select_tag 'search', options_for_select([["前方一致","forward_match"],["後方一致","backward_match"],["完全一致","perfect_match"],["部分一致","partial_match"]]) %>
-        <%= submit_tag "検索" %>
-        <% end %>
-      </div>
-     </div>
-    </div
-    <% end %>
       <main>
+        <%= render 'layouts/search' %>
         <p id="notice"><%= notice %></p>
         <%= yield %>
       </main>

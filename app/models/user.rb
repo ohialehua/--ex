@@ -26,13 +26,13 @@ class User < ApplicationRecord
   end
 
   def self.search(search,word)
-    if search == "forward_match"
+    if search == "forward"
       @user = User.where("name LIKE?","#{word}%")
-    elsif search == "backward_match"
+    elsif search == "backward"
       @user = User.where("name LIKE?","%#{word}")
-    elsif search == "perfect_match"
+    elsif search == "perfect"
       @user = User.where(name: word)
-    elsif search == "partial_match"
+    elsif search == "partial"
     	@user = User.where("name LIKE?","%#{word}%")
     else
       @user = User.all
