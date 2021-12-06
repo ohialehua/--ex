@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'relationships/index'
   devise_for :users
   root to: 'homes#top'
   get 'home/about' => 'homes#about'
@@ -14,5 +13,7 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create,:destroy]
     patch '/book_comments' => 'book_comments#create'
   end
+  resources :groups,except: [:destroy]
+  get 'relationships/index'
   get 'search' => 'searches#search'
 end
