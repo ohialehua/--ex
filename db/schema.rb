@@ -40,12 +40,14 @@ ActiveRecord::Schema.define(version: 2021_12_06_104602) do
     t.integer "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_users_on_group_id"
+    t.index ["user_id"], name: "index_group_users_on_user_id"
   end
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.text "introduction"
-    t.integer "image_id"
+    t.string "image_id"
     t.integer "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
