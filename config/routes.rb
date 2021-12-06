@@ -9,8 +9,9 @@ Rails.application.routes.draw do
     get 'followings' => 'relationships#followings'
     get 'followers' => 'relationships#followers'
   end
-  resources :groups,except: [:destroy] do
-    resources :group_users,only: [:index, :create, :destroy]
+  resources :groups do
+    get 'join' => 'groups#join'
+    post 'join' => 'groups#join'
   end
   post 'books/:id' => 'books#show'
   resources :books do
