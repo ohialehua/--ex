@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
-  
-  
-  
+
+  impressionist :actions => [:show]
+
   def index
     @book = Book.new
     to = Time.current.at_end_of_day
@@ -34,6 +34,7 @@ class BooksController < ApplicationController
     @user = @book.user
     @newbook = Book.new
     @comment = BookComment.new
+    impressionist(@book, nil, unique: [:impressionable_id, :ip_address])
   end
 
   def edit
