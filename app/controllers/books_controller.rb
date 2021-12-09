@@ -1,4 +1,7 @@
 class BooksController < ApplicationController
+  
+  
+  
   def index
     @book = Book.new
     to = Time.current.at_end_of_day
