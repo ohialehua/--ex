@@ -1,5 +1,7 @@
 class GroupsController < ApplicationController
-
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:edit, :update]
+  
   def index
     @groups = Group.all
     @book = Book.new
@@ -58,9 +60,9 @@ class GroupsController < ApplicationController
   def send_mail
     @group = Group.find(params[:group_id])
     group_users = @group.users
-    @mail_title = params[:mail_title]
-    @mail_content = params[:mail_content]
-    ContactMailer.send_mail(@mail_title, @mail_content, group_users).deliver
+    @title = params[:title]
+    @content = params[:content]
+    ContactMailer.send_mail(group_users,@title,@content).deliver
   end
 
   private

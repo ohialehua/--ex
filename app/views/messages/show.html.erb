@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="col-md-10 mx-auto text-center">
+    <h1 class="room" data-room="<%= @room.id %>" data-user="<%= current_user.id %>"><%= @user.name %> さんとのチャット</h1>
+    <div class="message col-md-4 mx-auto">
+      <div>
+      <% @messages.each do |m| %>
+        <% if m.user_id == current_user.id %>
+          <p class="text-right"><%= m.message %></p>
+        <% else %>
+          <p class="text-left"><%= m.message %></p>
+        <% end %>
+      <% end %>
+      </div>
+
+     <%= form_with model:@message, data: {remote: true} do |f| %>
+       <%= f.text_field :message %>
+       <%= f.hidden_field :room_id %>
+     <% end %>
+    </div>
+  </div>
+</div>

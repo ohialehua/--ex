@@ -5,10 +5,10 @@
     <div>
       <div class="margin_top">内容は以下の通りです。</div>
       <div class="small_margin_top">
-        [タイトル]<p class="font-weight-bold"><%= @mail_title %></p>
+        [タイトル]<p class="font-weight-bold"><%= @title %></p>
       </div>
       <div>
-        [本文]<p class="font-weight-bold"><%= @mail_content %></p>
+        [本文]<p class="font-weight-bold"><%=safe_join(@content.split("\n"),tag(:br)) %></p>
       </div>
     </div>
     </div>

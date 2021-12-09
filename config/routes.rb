@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'followings' => 'relationships#followings'
     get 'followers' => 'relationships#followers'
   end
+  resources :messages, only: [:create, :show]
   resources :groups do
     get 'join' => 'groups#join'
     post 'join' => 'groups#join'
