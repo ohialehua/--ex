@@ -8,6 +8,17 @@ class Book < ApplicationRecord
 		favorites.where(user_id: user.id).exists?
 	end
 
+	def self.sort(switch)
+	  if switch == 'likes'
+	    Favorite.group(:book_id).order(Arel.sql('count(book_id) desc')).pluck(:book_id)
+	  elsif switch == 'old'
+	    Book.all.order(created_at: :ASC)
+	  else
+	    Book.all.order(created_at: :DESC)
+	  end
+	end
+
+
 	def self.search(search,word)
     if search == "forward"
       @book = Book.where("title LIKE?","#{word}%")
