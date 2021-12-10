@@ -1,21 +1,23 @@
 class Book < ApplicationRecord
 	belongs_to :user
 	has_many :favorites, dependent: :destroy
-	has_many :favorited_users, through: :favorites, source: :user
+	has_many :week_favorites, -> {where(created_at: ((Time.current.at_end_of_day - 6.day).at_beginning_of_day)..(Time.current.at_end_of_day)) }, class_name: 'Favorite'
 	has_many :book_comments, dependent: :destroy
 
 	def favorited_by?(user)
 		favorites.where(user_id: user.id).exists?
 	end
 
-	def self.sort(switch)
-	  if switch == 'likes'
-	    Favorite.group(:book_id).order(Arel.sql('count(book_id) desc')).pluck(:book_id)
-	  elsif switch == 'old'
-	    Book.all.order(created_at: :ASC)
+	def self.sort(selection)
+	  if selection == 'PV'
+	    @books = Book.all.order(impressions_count: :DESC)
+	  elsif selection == 'new'
+	    @books = Book.all.order(created_at: :DESC)
+	  elsif selection == 'old'
+	    @books = Book.all.order(created_at: :ASC)
 	  else
-	    Book.all.order(created_at: :DESC)
-	  end
+      @books = Book.left_joins(:week_favorites).group(:id).order(Arel.sql('count(book_id) desc'))
+    end
 	end
 
 

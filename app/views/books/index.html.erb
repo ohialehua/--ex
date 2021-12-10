@@ -10,11 +10,28 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <div class="text-right">
-        <%= form_tag(books_path, method: :get) do %>
-          <%= select_tag '投稿並び替え', options_for_select([['新しい順','new'],['古い順','old'],['いい値が多い順','likes']]) %>
-        <% end %>
+        <form name="pullForm">
+
+    <select id="menu" onchange="viewChange();">
+        <option value="likes">いいねが多い順</option>
+        <option value="PV">閲覧が多い順</option>
+        <option value="new">
+          <%= link_to "新しい順", books_path(sort: 'created_at DESC'),remote: true %>
+        </option>
+        <option value="old">古い順</option>
+    </select>
+</form>
+        <%= link_to "新しい順", books_path(sort: 'created_at DESC'),remote: true %> | <%= link_to "古い順", books_path(sort: 'created_at ASC'),remote: true %><br>
+        <%= link_to "いいねが多い順", books_path(sort: 'favorite.count DESC'),remote: true %><br>
+        <%= link_to "閲覧が多い順", books_path(sort: 'impressions_count DESC'),remote: true %><br>
+          <%= select_tag '', options_for_select([['いいねが多い順','likes'],['閲覧が多い順','PV'],['新しい順','new'],['古い順','old']],
+          data:{remote: true, url:url_for(action: :index)}), class: "sort-btn" %>
+          <input id="sort-btn" type="button" value="クリック" onclick="screenChange()">
       </div>
-      <%= render 'index', books: @books %>
+      <div id="sort"></div>
+      <div id="index">
+        <%= render 'index', books: @books %>
+      </div>
     </div>
   </div>
 </div>

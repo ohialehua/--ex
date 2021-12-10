@@ -4,15 +4,8 @@ class BooksController < ApplicationController
 
   def index
     @newbook = Book.new
-    to = Time.current.at_end_of_day
-    from = (to - 6.day).at_beginning_of_day
-    @books = Book.includes(:favorited_users).
-      sort {|a,b|
-        b.favorited_users.includes(:favorites).where(created_at: from...to).size<=>
-        a.favorited_users.includes(:favorites).where(created_at: from...to).size
-      }
-    switch = params[:keyword]
-    @book = Book.sort(switch)
+    # @books = Book.all.order(params[:sort])
+    @books = Book.sort(params[:selection])
   end
 
   def new
