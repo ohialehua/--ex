@@ -8,17 +8,17 @@ class Book < ApplicationRecord
 		favorites.where(user_id: user.id).exists?
 	end
 
-	def self.sort(selection)
-	  if selection == 'PV'
-	    @books = Book.all.order(impressions_count: :DESC)
-	  elsif selection == 'new'
-	    @books = Book.all.order(created_at: :DESC)
-	  elsif selection == 'old'
-	    @books = Book.all.order(created_at: :ASC)
-	  else
-      @books = Book.left_joins(:week_favorites).group(:id).order(Arel.sql('count(book_id) desc'))
-    end
-	end
+	# def self.sort(selection)
+	  # if selection == 'PV'
+	    # @books = Book.all.order(impressions_count: :DESC)
+	  # elsif selection == 'new'
+	    # @books = Book.all.order(created_at: :DESC)
+	  # elsif selection == 'old'
+	    # @books = Book.all.order(created_at: :ASC)
+	  # else
+      # @books = Book.left_joins(:week_favorites).group(:id).order(Arel.sql('count(book_id) desc'))
+    # end
+	# end
 
 
 	def self.search(search,word)

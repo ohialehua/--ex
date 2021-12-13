@@ -4,8 +4,8 @@ class BooksController < ApplicationController
 
   def index
     @newbook = Book.new
-    # @books = Book.all.order(params[:sort])
-    @books = Book.sort(params[:selection])
+    @books = Book.all.order(params[:sort])
+    # @books = Book.sort(params[:selection])
   end
 
   def new
